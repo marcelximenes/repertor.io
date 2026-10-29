@@ -1,0 +1,193 @@
+/* ============================================================
+   System.DS — Color tokens
+   Dark-first. Two layers:
+   1) Primitive scales (--neutral-*, --gold-*, mood hues) — raw values.
+   2) Semantic aliases (--bg-*, --surface-*, --text-*, --border-*,
+      --brand, status, mood) — what components actually reference.
+   To re-skin: change --brand (and optionally the neutral ramp);
+   everything downstream follows.
+
+   PALETA 2026-07-16 (pedido do Marcel — "acertar a UI do projeto"):
+   sistema de elevação por ALTERNÂNCIA entre duas cores, em vez do
+   "clareia a cada nível" de antes. Dois tons compartilhados entre os
+   dois temas, só invertidos:
+     escuro:  111111 (fundo)      ↔ 2F2F2F (1º nível acima do fundo)
+     claro:   F0E6D2 (fundo)      ↔ DCD2BE (1º nível acima do fundo)
+   A profundidade de aninhamento simplesmente alterna entre os dois tons
+   do tema (fundo, 1º nível, 2º nível = fundo de novo, 3º nível = 1º nível
+   de novo, ...) — daí `--surface`/`--surface-overlay` (coisas que ficam
+   DIRETO em cima da página — cards, sheets) usarem o tom "1º nível", e
+   `--surface-raised`/`--bg-subtle`/`--surface-hover` (coisas aninhadas
+   MAIS UMA vez dentro de um card/sheet — ícone, thumb, input, track)
+   voltarem pro tom do fundo. Isso resolve de graça o problema antigo
+   (E13) de `--surface-raised`/`--surface-overlay` precisarem ser
+   diferentes um do outro pra um `.card-section--sheet` não sumir dentro
+   de uma sheet — aqui eles SÃO diferentes por construção (níveis
+   alternados, não a mesma cor).
+   `--surface-inverse` é o único token que foge da alternância de
+   propósito — é o destaque forte de "selecionado/hoje" (ver
+   .daycell--today, .mood-btn[data-sel], .habit-toggle[data-on]), e
+   aponta pro TOM DE FUNDO DO OUTRO TEMA (escuro→F0E6D2, claro→111111),
+   criando uma inversão limpa sem inventar uma cor nova.
+   Cores de humor/hábito (--red-500, --mood-*, PALETTE em memor-app.js)
+   NÃO mudam — pedido explícito do Marcel pra manter essas.
+   ============================================================ */
+
+:root {
+  /* ---- Primitive: neutrals (near-black → white) ---- */
+  --neutral-0:   #000000;
+  --neutral-950: #0a0a0b;
+  --neutral-900: #141416;
+  --neutral-850: #19191c;
+  --neutral-800: #202024;
+  --neutral-700: #2a2a2f;
+  --neutral-600: #3a3a40;
+  --neutral-500: #55555c;
+  --neutral-400: #77777f;
+  --neutral-300: #9a9aa2;
+  --neutral-200: #bfbfc6;
+  --neutral-100: #e4e4e8;
+  --neutral-50:  #f5f5f6;
+  --white:       #ffffff;
+
+  /* ---- Primitive: brand (warm gold — mantido só como referência
+     histórica; --brand abaixo agora usa o destaque bege da paleta nova,
+     não mais o dourado). Mood/status hues abaixo continuam os mesmos. ---- */
+  --gold-700: #b9891f;
+  --gold-600: #d9a82e;
+  --gold-500: #f2c94c;
+  --gold-400: #f6d77c;
+  --gold-300: #fbe6a8;
+
+  /* ---- Primitive: mood / status hues ---- */
+  /* NOTE (consolidação 2026-07-11): --yellow-500 era um literal #f2c94c
+     idêntico ao --gold-500 (a mesma cor definida duas vezes). Agora aponta
+     pro --gold-500 — uma única fonte de verdade pro amarelo/dourado. Mudar
+     o dourado da marca em um lugar (--gold-500) passa a arrastar junto o
+     amarelo de humor/status, como já se esperava visualmente.
+     2026-07-16: pedido explícito do Marcel — MANTER as cores de humor/
+     hábito como estão, mesmo com o resto da paleta mudando. */
+  --red-500:    #e5484d;
+  --orange-500: #e8944a;
+  --yellow-500: var(--gold-500);
+  --blue-500:   #5b9be5;
+  --green-500:  #3dd68c;
+
+  /* ---- Primitive: paleta nova (2026-07-16) — os dois tons de elevação
+     do tema escuro + o par claro correspondente. Primitivos aqui só pra
+     poder comentar/nomear; os aliases semânticos abaixo são o que os
+     componentes de fato usam. ---- */
+  --ink-900:  #0b0b0b;   /* fundo do tema escuro / surface-inverse do tema claro (2026-07-21: escurecido, pedido do Marcel "aumente a escuridão dos tons de preto") */
+  --ink-700:  #232323;   /* 1º nível do tema escuro (cards/inputs) / destaque+texto do tema claro (2026-07-21: escurecido junto) */
+  --sand-100: #f0e6d2;   /* fundo do tema claro / título+surface-inverse do tema escuro */
+  --sand-200: #dcd2be;   /* 1º nível do tema claro / destaque do tema escuro */
+  --sand-400: #b2ab9c;   /* texto secundário/body do tema escuro */
+  --sand-500: #908b7f;   /* texto secundário/body do tema claro */
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components
+     ============================================================ */
+
+  /* Backgrounds & surfaces — elevação por ALTERNÂNCIA (ver comentário no
+     topo do arquivo). --surface/--surface-overlay = 1º nível (coisas
+     direto em cima da página: cards, sheets). --surface-raised/
+     --bg-subtle/--surface-hover = 2º nível (aninhado mais uma vez dentro
+     de um card/sheet: ícone, thumb, input, track) — volta pro tom do
+     fundo, por isso "raised" aqui é mais escuro que --surface, não mais
+     claro (inverte a lógica antiga de "cada nível clareia um pouco"). */
+  --bg-base:         var(--ink-900);
+  --bg-subtle:       var(--ink-900);
+  --surface:         var(--ink-700);
+  --surface-raised:  var(--ink-900);
+  --surface-overlay: var(--ink-700);
+  --surface-hover:   var(--ink-900);
+  --surface-inverse: var(--sand-100);   /* destaque forte de "selecionado/hoje" — tom do outro tema, de propósito */
+
+  /* Borders (hairline, low-alpha white) — inalterado: é um overlay
+     translúcido sobre a superfície, então continua funcionando com
+     qualquer um dos dois tons de fundo novos. */
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text-primary:   var(--sand-100);              /* título — F0E6D2 */
+  --text-secondary: var(--sand-400);              /* body + secundário — B2AB9C */
+  --text-muted:     rgba(178, 171, 156, 0.65);    /* variante apagada de --sand-400, pra manter hierarquia com --text-secondary sem inventar uma cor nova */
+  --text-disabled:  rgba(178, 171, 156, 0.4);
+  --amoled-black:   #000000;                      /* preto puro (pixels apagados em AMOLED) — fundo opcional do pomodoro */
+  --text-idle:      rgba(178, 171, 156, 0.52);    /* rótulo NÃO escolhido (polo de emoção, hábito não marcado) — um pouco mais escuro que --text-muted */
+  --text-inverse:   var(--ink-900);               /* texto sobre --surface-inverse (claro) */
+  --text-brand:     var(--sand-200);              /* mesmo tom do destaque/botão */
+
+  /* Brand / destaques (botões etc.) — 2026-07-16: era dourado, agora é o
+     bege --sand-200 da paleta nova. */
+  --brand:         var(--sand-200);
+  --brand-strong:  #cfc4a9;   /* variante levemente mais escura, pra hover/active */
+  --brand-subtle:  rgba(220, 210, 190, 0.14);
+  --on-brand:      var(--ink-900);
+  --focus-ring:    rgba(220, 210, 190, 0.55);
+
+  /* Status */
+  --danger:         var(--red-500);
+  --danger-subtle:  rgba(229, 72, 77, 0.14);
+  --warning:        var(--orange-500);
+  --warning-subtle: rgba(232, 148, 74, 0.14);
+  --success:        var(--green-500);
+  --success-subtle: rgba(61, 214, 140, 0.14);
+  --info:           var(--blue-500);
+  --info-subtle:    rgba(91, 155, 229, 0.14);
+
+  /* Mood scale (RUIM → ÓTIMO) — mantido, pedido explícito do Marcel */
+  --mood-ruim:   var(--red-500);
+  --mood-baixo:  var(--orange-500);
+  --mood-neutro: var(--yellow-500);
+  --mood-bom:    var(--blue-500);
+  --mood-otimo:  var(--green-500);
+}
+
+/* ============================================================
+   TEMA CLARO — E12 (2026-07-10) + repaginado em 2026-07-16 (pedido do
+   Marcel). Mesmo par de tons do escuro, só invertido: fundo F0E6D2,
+   1º nível DCD2BE, destaque/título/botões 2F2F2F, texto secundário/body
+   908B7F. Ativado via `html[data-theme="light"]` (ver applyTheme em
+   memor-app.js) — a especificidade de [attr] em cima do elemento garante
+   que essas variáveis vençam as de :root sem depender da ordem no arquivo.
+   Só redefine as ALIASES SEMÂNTICAS (bg/surface/border/text/brand) —
+   cores de humor/status (--red-500 etc.) continuam as mesmas em
+   qualquer tema, são vívidas o bastante pra funcionar nos dois fundos.
+   ============================================================ */
+html[data-theme="light"] {
+  /* Fundos & superfícies — mesma regra de alternância do tema escuro,
+     só com o par claro (ver comentário no topo do arquivo). */
+  --bg-base:         var(--sand-100);
+  --bg-subtle:       var(--sand-100);
+  --surface:         var(--sand-200);
+  --surface-raised:  var(--sand-100);
+  --surface-overlay: var(--sand-200);
+  --surface-hover:   var(--sand-100);
+  --surface-inverse: var(--ink-900);   /* destaque forte de "selecionado/hoje" — tom do tema escuro, de propósito */
+
+  /* Bordas (hairline escuro em vez de branco) — inalterado, mesmo
+     racional do tema escuro (overlay translúcido, não precisa mudar). */
+  --border-subtle:  rgba(20, 16, 10, 0.08);
+  --border-default: rgba(20, 16, 10, 0.13);
+  --border-strong:  rgba(20, 16, 10, 0.22);
+
+  /* Texto */
+  --text-primary:   var(--ink-700);               /* título — 2F2F2F */
+  --text-secondary: var(--sand-500);              /* body + secundário — 908B7F */
+  --text-muted:     rgba(144, 139, 127, 0.7);     /* variante apagada de --sand-500 */
+  --text-disabled:  rgba(144, 139, 127, 0.45);
+  --text-idle:      rgba(144, 139, 127, 0.62);    /* rótulo não escolhido — mesmo papel do tema escuro */
+  --text-inverse:   var(--sand-100);              /* texto sobre --surface-inverse (escuro) */
+  --text-brand:     var(--ink-700);               /* mesmo tom do destaque/botão */
+
+  /* Marca / destaques (botões etc.) — 2026-07-16: era o marrom caramelo,
+     agora é --ink-700 (2F2F2F), espelhando o --sand-200 do tema escuro. */
+  --brand:         var(--ink-700);
+  --brand-strong:  #454545;   /* variante levemente mais clara, pra hover/active */
+  --brand-subtle:  rgba(47, 47, 47, 0.10);
+  --on-brand:      var(--sand-100);
+  --focus-ring:    rgba(47, 47, 47, 0.4);
+}

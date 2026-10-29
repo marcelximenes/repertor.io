@@ -1,0 +1,66 @@
+/* ============================================================
+   System.DS — base reset & document defaults.
+   Sets the dark canvas, default type, and a few ergonomics.
+   Kept minimal — components carry their own styling via tokens.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Uppercase wide-tracked labels are a core brand signal */
+.ds-label {
+  font-family: var(--font-label);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Wide techy display title */
+.ds-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+}
+
+::selection {
+  background: var(--brand-subtle);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* Thin custom scrollbars on dark */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-700) transparent;
+}

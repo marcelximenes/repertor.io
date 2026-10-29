@@ -1,0 +1,11 @@
+/* ============================================================
+   System.DS — Fonts
+   Webfonts loaded from Google Fonts. To swap a typeface, change
+   the @import URL here and the --font-* families in typography.css.
+   NOTE: these are best-guess matches for the reference screenshots
+   (a wide, techy, uppercase display face + a clean geometric UI
+   face + a mono for metrics). Swap freely — the whole system is
+   family-token driven.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');

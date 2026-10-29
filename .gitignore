@@ -1,0 +1,4 @@
+# dados pessoais (repertório) e caches não vão para o git
+dados/*.json
+__pycache__/
+*.pyc

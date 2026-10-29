@@ -1,0 +1,57 @@
+/* ============================================================
+   System.DS — Typography tokens
+   The reference UI pairs a wide, techy uppercase DISPLAY face for
+   page titles with a clean geometric SANS for UI/body and a MONO
+   for metrics/versions. Swap any family in one line below.
+   Wide letter-spacing on uppercase labels is a core brand signal.
+   ============================================================ */
+
+:root {
+  /* ---- Families (swap here to re-skin type) ---- */
+  --font-display: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-sans:    'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Sans', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Semantic role aliases */
+  --font-title: var(--font-display);
+  --font-body:  var(--font-sans);
+  --font-label: var(--font-sans);
+
+  /* ---- Weights ---- */
+  --fw-regular:  400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+
+  /* ---- Font sizes ----
+     Full type ramp. Display/metric are the expressive end (wide
+     uppercase titles, big calendar numerals); body→nano cover UI.
+     Add sizes here; components reference the semantic names. */
+  --fs-hero:      48px;  /* marketing / doc hero */
+  --fs-display-lg:38px;  /* oversized page title */
+  --fs-display:   30px;  /* page titles: HÁBITOS, HUMOR */
+  --fs-metric:    28px;  /* calendar day numbers */
+  --fs-h1:        24px;
+  --fs-h2:        20px;
+  --fs-title:     18px;  /* card titles: OUVIR MÚSICA */
+  --fs-h3:        17px;  /* sub-card headings */
+  --fs-body-lg:   16px;  /* lead paragraphs */
+  --fs-body:      14px;
+  --fs-body-sm:   var(--fs-body);  /* dense/secondary — fonte única (era 14px duplicado); diferencie aqui se um dia quiser menor */
+  --fs-caption:   13px;  /* 0/NaN dias */
+  --fs-label:     12px;  /* WEEK / MONTH, module labels */
+  --fs-micro:     11px;
+  --fs-nano:      10px;  /* tick labels, footnotes */
+
+  /* ---- Line heights ---- */
+  --lh-tight:  1.1;  /* @kind font */
+  --lh-snug:   1.25; /* @kind font */
+  --lh-normal: 1.5;  /* @kind font */
+
+  /* ---- Letter spacing (tracking) ---- */
+  --tracking-tight:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.08em;
+  --tracking-wider:   0.14em;
+  --tracking-widest:  0.24em;  /* wide-tracked uppercase labels */
+}

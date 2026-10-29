@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171717">
+<script>(function(){try{var t=localStorage.getItem('repertorio:tema')||'escuro';var claro=t==='claro'||(t==='auto'&&matchMedia('(prefers-color-scheme: light)').matches);if(claro)document.documentElement.setAttribute('data-theme','light');if(localStorage.getItem('repertorio:menu')==='mini')document.documentElement.setAttribute('data-menu','mini');}catch(e){}})();</script>
+<title>Repertor.io</title>
+<link rel="stylesheet" href="ds/styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="shell" class="shell">
+  <div id="scrim" class="scrim"></div>
+  <aside id="sidebar" class="drawer" aria-label="Menu">
+    <div class="drawer__brand"><a class="wordmark" href="#/" title="Repertor.io"><span class="wordmark__nome">repertor</span><span class="wordmark__io">.io</span></a>
+      <button class="icon-btn recolher" id="recolherBtn" title="Recolher menu" aria-label="Recolher menu" aria-expanded="true"><span class="ic" data-ic="sidebar"></span></button></div>
+    <nav class="drawer__nav sb-nav">
+      <a class="nav-item" href="#/" data-rota="biblioteca" title="Biblioteca"><span class="ic" data-ic="library"></span><span class="nav-item__label">Biblioteca</span></a>
+      <a class="nav-item" href="#/nova" data-rota="nova" title="Nova música"><span class="ic" data-ic="plus"></span><span class="nav-item__label">Nova música</span></a>
+      <a class="nav-item" href="#/importar" data-rota="importar" title="Importar cifra"><span class="ic" data-ic="paste"></span><span class="nav-item__label">Importar cifra</span></a>
+      <a class="nav-item" href="#/acordes" data-rota="acordes" title="Acordes"><span class="ic" data-ic="grid"></span><span class="nav-item__label">Acordes</span></a>
+      <a class="nav-item" href="#/config" data-rota="config" title="Ajustes"><span class="ic" data-ic="settings"></span><span class="nav-item__label">Ajustes</span></a>
+    </nav>
+    <div class="drawer__div"></div>
+    <div class="sb-filtros" id="sbFiltros"></div>
+    <div class="drawer__tools">
+      <div id="statusArquivo" class="status-arquivo"></div>
+      <button class="tool-btn" id="temaBtn" title="Alternar tema" aria-label="Alternar tema"><span class="ic" data-ic="sun"></span></button>
+    </div>
+  </aside>
+  <div class="principal">
+    <header class="appbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Abrir menu"><span class="ic" data-ic="menu"></span></button>
+      <a class="brand-pill" href="#/"><span class="brand-pill__star ic" data-ic="music"></span>Repertor.io</a>
+      <div class="appbar__spacer"></div>
+      <a class="icon-btn" href="#/importar" title="Importar cifra" aria-label="Importar cifra"><span class="ic" data-ic="paste"></span></a>
+      <a class="icon-btn" href="#/nova" title="Nova música" aria-label="Nova música"><span class="ic" data-ic="plus"></span></a>
+    </header>
+    <main class="conteudo" id="conteudo" tabindex="-1"></main>
+  </div>
+</div>
+<div class="popover" id="popover" hidden></div>
+<div class="painel" id="painel" role="dialog" aria-label="Ferramenta da cifra" hidden></div>
+<div class="modal-fundo" id="modal" hidden><div class="modal" role="dialog" aria-modal="true"></div></div>
+<div class="toast-r" id="toast" hidden></div>
+
+<script src="js/icones.js"></script>
+<script src="js/acordes.js"></script>
+<script src="js/diagrama.js"></script>
+<script src="js/cifra.js"></script>
+<script src="js/importar.js"></script>
+<script src="js/exemplos.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

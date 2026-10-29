@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Repertor.io · receber dados</title></head>
+<body>
+<!-- Página invisível do servidor local (127.0.0.1): recebe as músicas que estavam no app aberto como arquivo (file://)
+     e mescla no banco do servidor (não apaga nada; música mais nova vence). Só aceita mensagem de página file://. -->
+<script src="js/dados.js"></script>
+<script>
+(function () {
+  'use strict';
+  const D = window.Repertorio.dados;
+  window.addEventListener('message', async (e) => {
+    if (e.origin !== 'null' || !e.data || e.data.tipo !== 'repertorio:migrar') return; // file:// tem origem "null"
+    try {
+      await D.iniciar();
+      const r = await D.importarPacote(e.data.pacote);
+      const c = D.estado.config;
+      if (e.data.config && !c.layout && !c.aparencia) await D.salvarConfig(e.data.config); // servidor ainda sem ajustes: leva os do arquivo
+      for (const [k, v] of Object.entries(e.data.local || {})) try { localStorage.setItem(k, v); } catch (er) { /* ok */ }
+      e.source.postMessage({ tipo: 'repertorio:migrado', ok: true, novas: r.novas, atualizadas: r.atualizadas }, '*');
+    } catch (er) {
+      e.source.postMessage({ tipo: 'repertorio:migrado', ok: false, erro: String(er && er.message || er) }, '*');
+    }
+  });
+  window.parent.postMessage({ tipo: 'repertorio:pronto' }, '*');
+})();
+</script>
+</body></html>

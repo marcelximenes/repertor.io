@@ -1,0 +1,61 @@
+/* ============================================================
+   System.DS — Effects: shadows, blur, motion, focus
+   Dark UI relies on lighter surfaces for elevation; shadows are
+   subtle and reserved for overlays/drawers. Soft inner highlights
+   give surfaces a faint edge.
+   ============================================================ */
+
+:root {
+  /* ---- Shadows ---- */
+  --shadow-none: none;
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-md:   0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg:   0 18px 48px rgba(0, 0, 0, 0.60);
+  --shadow-drawer: 24px 0 64px rgba(0, 0, 0, 0.55);
+
+  /* Faint top highlight for raised surfaces */
+  --highlight-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Recessed inner shadow for calendar/day cells */
+  --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.55);
+
+  /* Focus ring (uses brand) */
+  --ring: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--focus-ring);
+
+  /* ---- Blur (drawers, overlays, glass) ---- */
+  --blur-overlay: 24px;
+  --blur-panel: 40px;
+  --scrim: rgba(0, 0, 0, 0.55);
+
+  /* ---- Motion ---- */
+  --dur-fast:  120ms; /* @kind other */
+  --dur-base:  200ms; /* @kind other */
+  --dur-slow:  320ms; /* @kind other */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);    /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);/* @kind other */
+  /* 2026-07-18 (pedido do Marcel: "animação de botão sendo pressionado,
+     gostosa, meio macia") — as regras :active { transform: scale(
+     var(--press-scale)) } espalhadas pelo app não tinham NENHUMA
+     transition antes disso: o botão saltava pra 0.97 e voltava pra 1
+     instantaneamente (sem interpolação), o que lê como "duro"/binário em
+     vez de macio. --ease-press tem um leve overshoot (back-ease, passa
+     de 1 antes de assentar) só na volta — dá aquela sensação de "mola"
+     ao soltar, sem exagerar. --dur-press um pouco mais longo que
+     --dur-fast (que é usado pra hover/cor) porque o movimento físico de
+     escala precisa de mais quadros pra não parecer picotado. */
+  --dur-press:  180ms;
+  --ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Interaction deltas (documented, used by components) */
+  --press-scale: 0.97;             /* @kind other */
+  /* 2026-07-25 (pedido do Marcel: "nos botões diários de hábitos a animação
+     está bem sutil, pode ser maior mesmo, mais sensação de apertar mesmo").
+     Variante FORTE do press, usada só nos alvos de toque grandes dos
+     hábitos (.habit-day-card, .habit-toggle) — 0.97 num card de 128px é um
+     deslocamento de ~2px, imperceptível. 0.90 afunda de verdade; o
+     --dur-press-in curto faz a "descida" ser quase instantânea (é assim que
+     lê como apertar) e a subida herda o overshoot de --ease-press. */
+  --press-scale-strong: 0.90;      /* @kind other */
+  --dur-press-in: 90ms;            /* @kind other */
+  --hover-lift-bg: var(--surface-hover);
+}

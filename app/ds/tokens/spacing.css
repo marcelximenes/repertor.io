@@ -1,0 +1,78 @@
+/* ============================================================
+   System.DS — Spacing, sizing & radius tokens
+   Spacing scale is VALUE-NAMED: the number in each token IS its
+   pixel value (--space-2 = 2px, --space-16 = 16px). No mental math,
+   no lookup table. 4px stays the rhythm base; 2px/6px/10px exist for
+   fine tuning. To rescale globally, edit the raw px values below.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (value = pixels) ---- */
+  --space-1:   1px;
+  --space-2:   2px;
+  --space-4:   4px;
+  --space-6:   6px;
+  --space-8:   8px;
+  --space-10:  10px;
+  --space-12:  12px;
+  --space-16:  16px;
+  --space-20:  20px;
+  --space-24:  24px;
+  --space-32:  32px;
+  --space-40:  40px;
+  --space-48:  48px;
+  --space-64:  64px;
+  --space-80:  80px;
+  --space-96:  96px;
+
+  /* Default padding — applies to every surface that is NOT already nested
+     inside a parent whose padding sits very close to its own edge. */
+  --pad-default: var(--space-16);
+
+  /* ---- Radius primitives ---- */
+  --radius-xs:   6px;
+  --radius-sm:   10px;
+  --radius-md:   12px;   /* 2026-07-16 (pedido do Marcel): "radius padrão do sistema é 12px" — era 14px */
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-2xl:  30px;
+  --radius-full: 999px;
+
+  /* ---- Radius semantic aliases (edit to reshape components) ---- */
+  --radius-control: var(--radius-xs);   /* buttons, inputs, toggles */
+  --radius-tile:    var(--radius-lg);    /* module tiles, day cells */
+  --radius-card:    var(--radius-xl);    /* cards, containers */
+  --radius-pill:    var(--radius-full);
+
+  /* ---- Default radius + concentric-nesting rule (atualizado
+     2026-07-16, pedido do Marcel) ----
+     O radius PADRÃO do sistema agora é --radius-md (12px) — antes era
+     o radius do tile (18px). Regra de aninhamento concêntrico continua a
+     mesma ideia, só com a base nova: um elemento arredondado dentro de
+     outro elemento arredondado deve encaixar CONCENTRICAMENTE — dado um
+     pai com padding P, o filho usa radius = 12 − P (ex.: padding 12 →
+     filho com radius 0; padding 4 → filho com radius 8). Prefira dar
+     padding ao pai e reajustar/recortar o radius do filho a deixar uma
+     imagem/elemento interno "quadrar" um canto arredondado. */
+  --radius-default: var(--radius-md);
+
+  /* ---- Control sizing ---- */
+  --control-height-sm: 34px;
+  --control-height-md: 42px;
+  --control-height-lg: 52px;
+
+  /* Alvo mínimo de toque (acessibilidade — Material/HIG recomendam ~44px).
+     Use como min-width/min-height em qualquer controle interativo pequeno
+     (botões de ícone, "x" de foto/link, +/- do stepper, checks). */
+  --touch-min: 44px;
+
+  /* ---- Icon sizing ---- */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-stroke: 1.75;   /* thin line-icon stroke weight */
+
+  /* ---- Layout ---- */
+  --container-max: 1120px;
+  --gutter: var(--space-20);
+}

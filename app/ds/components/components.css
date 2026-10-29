@@ -1,0 +1,485 @@
+/* ============================================================
+   System.DS — component styles.
+   Component .jsx files render these classNames; rules live here so
+   hover/active/focus states work and everything ships to consumers
+   via styles.css. All values reference tokens.
+   ============================================================ */
+
+/* ---------------------------------------------------------------
+   Button
+   --------------------------------------------------------------- */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  height: var(--control-height-md);
+  padding: 0 var(--space-20);
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-label);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+.ds-btn:hover { background: var(--surface-hover); }
+.ds-btn:active { transform: scale(var(--press-scale)); }
+.ds-btn:focus-visible { box-shadow: var(--ring); }
+.ds-btn:disabled,
+.ds-btn[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ds-btn--primary {
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+}
+.ds-btn--primary:hover { background: var(--white); }
+.ds-btn--brand {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.ds-btn--brand:hover { background: var(--brand-strong); }
+.ds-btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.ds-btn--ghost:hover { background: var(--surface-raised); }
+.ds-btn--danger {
+  background: var(--danger-subtle);
+  color: var(--danger);
+}
+.ds-btn--danger:hover { background: rgba(229, 72, 77, 0.22); }
+
+.ds-btn--sm { height: var(--control-height-sm); padding: 0 var(--space-16); font-size: var(--fs-micro); }
+.ds-btn--lg { height: var(--control-height-lg); padding: 0 var(--space-24); }
+.ds-btn--block { display: flex; width: 100%; }
+
+/* ---------------------------------------------------------------
+   IconButton
+   --------------------------------------------------------------- */
+.ds-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  border: none;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.ds-icon-btn:hover { background: var(--surface-raised); color: var(--text-primary); }
+.ds-icon-btn:active { transform: scale(var(--press-scale)); }
+.ds-icon-btn:focus-visible { box-shadow: var(--ring); }
+.ds-icon-btn--raised { background: var(--surface-raised); color: var(--text-primary); }
+.ds-icon-btn--raised:hover { background: var(--surface-hover); }
+.ds-icon-btn--brand { background: var(--brand); color: var(--on-brand); }
+.ds-icon-btn--brand:hover { background: var(--brand-strong); }
+.ds-icon-btn--sm { width: var(--control-height-sm); height: var(--control-height-sm); }
+.ds-icon-btn--lg { width: var(--control-height-lg); height: var(--control-height-lg); }
+.ds-icon-btn:disabled { opacity: 0.4; pointer-events: none; }
+
+/* ---------------------------------------------------------------
+   SegmentedControl (WEEK / MONTH)
+   --------------------------------------------------------------- */
+.ds-seg {
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: var(--surface);
+  border-radius: var(--radius-control);
+}
+.ds-seg__opt {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 0 var(--space-24);
+  border-radius: calc(var(--radius-control) - 2px);
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard);
+}
+.ds-seg__opt:hover { color: var(--text-secondary); }
+.ds-seg__opt[data-active='true'] {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+.ds-seg__opt:focus-visible { box-shadow: var(--ring); }
+
+/* ---------------------------------------------------------------
+   Card
+   --------------------------------------------------------------- */
+.ds-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--space-20);
+}
+.ds-card--raised { background: var(--surface-raised); }
+.ds-card--flush { padding: 0; }
+.ds-card--inset {
+  background: var(--bg-subtle);
+  border-color: transparent;
+}
+.ds-card--interactive { cursor: pointer; transition: background var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard); }
+.ds-card--interactive:hover { background: var(--surface-raised); }
+.ds-card--interactive:active { transform: scale(0.995); }
+
+/* ---------------------------------------------------------------
+   ModuleTile (menu grid)
+   --------------------------------------------------------------- */
+.ds-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  padding: var(--space-20) var(--space-12);
+  min-height: 96px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.ds-tile:hover { background: var(--surface-raised); color: var(--text-primary); }
+.ds-tile:active { transform: scale(var(--press-scale)); }
+.ds-tile__label {
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------
+   AccountCard
+   --------------------------------------------------------------- */
+.ds-account {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+}
+.ds-account__row { display: flex; align-items: center; gap: var(--space-12); }
+.ds-account__name {
+  font-family: var(--font-label);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+.ds-account__sub {
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.ds-account__meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+/* ---------------------------------------------------------------
+   Divider
+   --------------------------------------------------------------- */
+.ds-divider {
+  border: none;
+  height: 1px;
+  background: var(--border-default);
+  margin: 0;
+}
+.ds-divider--vertical { height: auto; width: 1px; align-self: stretch; }
+
+/* ---------------------------------------------------------------
+   CheckCircle
+   --------------------------------------------------------------- */
+.ds-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-strong);
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.ds-check:hover { border-color: var(--text-muted); }
+.ds-check:active { transform: scale(var(--press-scale)); }
+.ds-check[data-checked='true'] {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--on-brand);
+}
+.ds-check:focus-visible { box-shadow: var(--ring); }
+
+/* ---------------------------------------------------------------
+   Switch
+   --------------------------------------------------------------- */
+.ds-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 46px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--dur-base) var(--ease-standard);
+}
+.ds-switch__thumb {
+  position: absolute;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--text-secondary);
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-standard);
+}
+.ds-switch[data-checked='true'] { background: var(--brand); }
+.ds-switch[data-checked='true'] .ds-switch__thumb { transform: translateX(18px); background: var(--on-brand); }
+.ds-switch:focus-visible { box-shadow: var(--ring); }
+
+/* ---------------------------------------------------------------
+   Stepper (MAIO 2026 ‹ ›)
+   --------------------------------------------------------------- */
+.ds-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-4);
+  background: var(--surface-raised);
+  border-radius: var(--radius-control);
+}
+.ds-stepper__label {
+  font-family: var(--font-label);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  padding: 0 var(--space-8);
+  min-width: 96px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------
+   Badge
+   --------------------------------------------------------------- */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 20px;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+}
+.ds-badge--brand { background: var(--brand); color: var(--on-brand); }
+.ds-badge--danger { background: var(--danger); color: var(--white); }
+.ds-badge--outline { background: transparent; border: 1px solid var(--border-strong); }
+
+/* ---------------------------------------------------------------
+   Tag / Chip
+   --------------------------------------------------------------- */
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 30px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border: 1px solid var(--border-subtle);
+}
+.ds-tag__dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: currentColor; }
+
+/* ---------------------------------------------------------------
+   Avatar
+   --------------------------------------------------------------- */
+.ds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  overflow: hidden;
+  flex-shrink: 0;
+  font-family: var(--font-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+}
+.ds-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ds-avatar--sm { width: 32px; height: 32px; font-size: var(--fs-caption); }
+.ds-avatar--lg { width: 56px; height: 56px; }
+
+/* ---------------------------------------------------------------
+   ProgressBar
+   --------------------------------------------------------------- */
+.ds-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+.ds-progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+/* ---------------------------------------------------------------
+   HeatmapGrid (habit contribution grid)
+   --------------------------------------------------------------- */
+.ds-heatmap { display: grid; gap: 5px; }
+.ds-heatmap__cell {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  background: var(--surface-hover);
+}
+
+/* ---------------------------------------------------------------
+   MoodFace + MoodLegend
+   --------------------------------------------------------------- */
+.ds-mood-face {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-mood-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  align-items: center;
+}
+.ds-mood-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.ds-mood-legend__pct { color: var(--text-muted); font-family: var(--font-mono); }
+
+/* ---------------------------------------------------------------
+   Sparkbars (mood bar chart)
+   --------------------------------------------------------------- */
+.ds-sparkbars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 100%;
+}
+.ds-sparkbars__bar {
+  flex: 1;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  min-height: 6px;
+}
+.ds-sparkbars__bar--empty {
+  background: transparent;
+  border: 1.5px dashed var(--border-default);
+}
+
+/* ---------------------------------------------------------------
+   DayCell (calendar)
+   --------------------------------------------------------------- */
+.ds-daycell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-tile);
+  background: var(--surface);
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+.ds-daycell:hover { background: var(--surface-raised); }
+.ds-daycell:active { transform: scale(var(--press-scale)); }
+.ds-daycell__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-metric);
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+}
+.ds-daycell__dow {
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.ds-daycell--muted { box-shadow: none; background: transparent; }
+.ds-daycell--muted .ds-daycell__num { color: var(--text-disabled); }
+.ds-daycell--today { background: var(--surface-raised); border: 1px solid var(--brand); }

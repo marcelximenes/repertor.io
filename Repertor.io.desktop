@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Repertor.io
+Comment=Repertório pessoal de cifras
+Exec=bash -c 'cd "$(dirname "%k")" && ./abrir.sh'
+Icon=audio-x-generic
+Terminal=false
+Categories=AudioVideo;Music;
